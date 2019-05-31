@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Тимур Сиваков](https://up.htmlacademy.ru/javascript/17/user/871733).
-* Наставник: `Неизвестно`.
+* Наставник: [Юрий Катков] (https://htmlacademy.ru/profile/id473867).
 
 ---
 
