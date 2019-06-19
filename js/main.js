@@ -4,6 +4,7 @@ var similarPinElement = document.querySelector('.map__pins');
 var USERS_AVATARS = ['01', '02', '03', '04', '05', '06', '07', '08'];
 var TYPES_OF_HOUSING = ['palace', 'flat', 'house', 'bungalo'];
 var NUMBER_OF_ADS = 8;
+var MAP_CLASS = '.map';
 var MAP_X_RANGE = {
   min: 0,
   max: similarPinElement.clientWidth
@@ -15,7 +16,14 @@ var MAP_Y_RANGE = {
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 
-document.querySelector('.map').classList.remove('map--faded');
+/**
+ * Функция удаляет у элемента класс .map
+ * @param {string} className
+ * @return {void} возвращает элемент без класса .map
+ */
+var setupFunction = function (className) {
+  return document.querySelector(className).classList.remove('map--faded');
+};
 
 /**
  * Функция возвращает проивольное целое число из диапазона
@@ -31,7 +39,7 @@ var generateRandomInteger = function (min, max) {
 /**
  * Функция возвращает рандомный элемент из массива характеристик объявления
  * @param {string[]} adsParameters
- * @return {string} возвращает элемент массива
+ * @return {string} возвращает элемент массива характеристик объявления
  */
 var getRandomArrayElement = function (adsParameters) {
   return adsParameters[Math.floor(Math.random() * adsParameters.length)];
@@ -49,15 +57,13 @@ var getRandomArrayElement = function (adsParameters) {
  *   min: number,
  *   max: number
  * }} mapY координата y метки на карте
- * @param {number} pinWidth Ширина блока метки на карте
- * @param {number} pinHeight Высота блока метки на карте
  * @return {{
  *   location: string,
  *   author: string,
  *   offer: string
  * }[]} массив объявлений
  */
-var generateAds = function (avatars, types, mapX, mapY, pinWidth, pinHeight) {
+var generateAds = function (avatars, types, mapX, mapY) {
   var ads = [];
   for (var i = 0; i < NUMBER_OF_ADS; i++) {
     if (i < avatars.length) {
@@ -69,8 +75,8 @@ var generateAds = function (avatars, types, mapX, mapY, pinWidth, pinHeight) {
           type: getRandomArrayElement(types)
         },
         location: {
-          x: generateRandomInteger(mapX.min, mapX.max) + pinWidth / 2,
-          y: generateRandomInteger(mapY.min, mapY.max) + pinHeight
+          x: generateRandomInteger(mapX.min, mapX.max),
+          y: generateRandomInteger(mapY.min, mapY.max)
         }
       };
       ads.push(ad);
@@ -87,12 +93,14 @@ var generateAds = function (avatars, types, mapX, mapY, pinWidth, pinHeight) {
  *   location: string,
  *   author: string
  * }} ad
+ * @param {number} pinWidth Ширина блока метки на карте
+ * @param {number} pinHeight Высота блока метки на карте
  * @return {Node}
  */
-var renderMapPin = function (ad) {
+var renderMapPin = function (ad, pinWidth, pinHeight) {
   var pin = similarPinTemplate.cloneNode(true);
-  pin.style.left = ad.location.x + 'px';
-  pin.style.top = ad.location.y + 'px';
+  pin.style.left = (ad.location.x - pinWidth / 2) + 'px';
+  pin.style.top = (ad.location.y - pinHeight) + 'px';
   pin.children[0].src = ad.author.avatar;
   pin.children[0].alt = 'Заголовок объявления';
   return pin;
@@ -103,11 +111,11 @@ var renderMapPin = function (ad) {
  */
 var renderAdsOnMap = function () {
   var fragment = document.createDocumentFragment();
-  var ads = generateAds(USERS_AVATARS, TYPES_OF_HOUSING, MAP_X_RANGE, MAP_Y_RANGE, PIN_WIDTH, PIN_HEIGHT);
+  var ads = generateAds(USERS_AVATARS, TYPES_OF_HOUSING, MAP_X_RANGE, MAP_Y_RANGE);
   for (var i = 0; i < ads.length; i++) {
-    fragment.appendChild(renderMapPin(ads[i]));
+    fragment.appendChild(renderMapPin(ads[i], PIN_WIDTH, PIN_HEIGHT));
   }
-  return similarPinElement.append(fragment);
+  similarPinElement.appendChild(fragment);
 };
-
+setupFunction(MAP_CLASS);
 renderAdsOnMap();
