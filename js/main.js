@@ -41,7 +41,7 @@ var generateRandomInteger = function (min, max) {
  * @param {string[]} adsParameters
  * @return {string} возвращает элемент массива характеристик объявления
  */
-var getRandomArrayElement = function (adsParameters) {
+var getRandomAdsParameter = function (adsParameters) {
   return adsParameters[Math.floor(Math.random() * adsParameters.length)];
 };
 
@@ -72,7 +72,7 @@ var generateAds = function (avatars, types, mapX, mapY) {
           avatar: 'img/avatars/user' + avatars[i] + '.png'
         },
         offer: {
-          type: getRandomArrayElement(types)
+          type: getRandomAdsParameter(types)
         },
         location: {
           x: generateRandomInteger(mapX.min, mapX.max),
