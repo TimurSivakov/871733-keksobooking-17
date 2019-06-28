@@ -1,6 +1,9 @@
 'use strict';
 var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var similarPinElement = document.querySelector('.map__pins');
+var adForm = document.querySelector('.ad-form');
+var adFormFieldsets = adForm.querySelectorAll('.ad-form__element');
+console.log(adFormFieldsets);
 var USERS_AVATARS = ['01', '02', '03', '04', '05', '06', '07', '08'];
 var TYPES_OF_HOUSING = ['palace', 'flat', 'house', 'bungalo'];
 var NUMBER_OF_ADS = 8;
@@ -117,5 +120,15 @@ var renderAdsOnMap = function () {
   }
   similarPinElement.appendChild(fragment);
 };
-setupFunction(MAP_CLASS);
-renderAdsOnMap();
+
+/**
+ * Функция устанавливает атрибут disabled на выбранный селектор
+ * @param {RadioNodeList|HTMLElement} selectorsArray
+ */
+var setDisableAttribute = function (selectorsArray) {
+  for (var i = 0; i < selectorsArray.length; i++) {
+    selectorsArray[i].disabled = true;
+  }
+};
+setDisableAttribute(adFormFieldsets);
+
