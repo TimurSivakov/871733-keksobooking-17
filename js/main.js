@@ -1,13 +1,18 @@
 'use strict';
+var map = document.querySelector('.map');
 var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-var similarPinElement = document.querySelector('.map__pins');
+var similarPinElement = map.querySelector('.map__pins');
+var mainPin = map.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
 var adFormFieldsets = adForm.querySelectorAll('.ad-form__element');
-console.log(adFormFieldsets);
+var mapFilterSelects = map.querySelectorAll('.map__filter');
+var mapFilterInputs = map.querySelectorAll('.map__checkbox');
+var addressInput = adForm.querySelector('#address');
 var USERS_AVATARS = ['01', '02', '03', '04', '05', '06', '07', '08'];
 var TYPES_OF_HOUSING = ['palace', 'flat', 'house', 'bungalo'];
 var NUMBER_OF_ADS = 8;
-var MAP_CLASS = '.map';
+var MAP_FADED_CLASS = 'map--faded';
+var ADFORM_DISABLED_CLASS = 'ad-form--disabled';
 var MAP_X_RANGE = {
   min: 0,
   max: similarPinElement.clientWidth
@@ -18,14 +23,22 @@ var MAP_Y_RANGE = {
 };
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
-
+var MAIN_PIN_X = 570;
+var MAIN_PIN_Y = 375;
+var MAIN_PIN_WIDTH = 65;
+var MAIN_PIN_INACTIVE_HEIGHT = 65;
+var MAIN_PIN_ACTIVE_HEIGHT = MAIN_PIN_INACTIVE_HEIGHT + 22;
+var mainPinXCenter = MAIN_PIN_X + MAIN_PIN_WIDTH / 2;
+var mainPinYCenter = MAIN_PIN_Y + MAIN_PIN_INACTIVE_HEIGHT / 2;
+var MAIN_PIN_ACTIVE_Y = MAIN_PIN_Y + MAIN_PIN_ACTIVE_HEIGHT;
 /**
- * Функция удаляет у элемента класс .map
- * @param {string} className
- * @return {void} возвращает элемент без класса .map
+ * Функция удаляет у элемента класс
+ * @param {Element} className
+ * @param {string} classForRemove
+ * @return {void} возвращает элемент без класса
  */
-var setupFunction = function (className) {
-  return document.querySelector(className).classList.remove('map--faded');
+var setupFunction = function (className, classForRemove) {
+  return className.classList.remove(classForRemove);
 };
 
 /**
@@ -123,12 +136,35 @@ var renderAdsOnMap = function () {
 
 /**
  * Функция устанавливает атрибут disabled на выбранный селектор
- * @param {RadioNodeList|HTMLElement} selectorsArray
+ * @param {RadioNodeList|HTMLElement|Element} selectors
+ * @param {boolean} isDisabled булево значение отключен или нет
  */
-var setDisableAttribute = function (selectorsArray) {
-  for (var i = 0; i < selectorsArray.length; i++) {
-    selectorsArray[i].disabled = true;
+var setDisableAttribute = function (selectors, isDisabled) {
+  for (var i = 0; i < selectors.length; i++) {
+    selectors[i].disabled = isDisabled;
   }
 };
-setDisableAttribute(adFormFieldsets);
+/**
+ * Функция удаляет классы у элементов и удаляет событие
+ */
+var setActiveCondition = function () {
+  setDisableAttribute(adFormFieldsets, false);
+  setDisableAttribute(mapFilterSelects, false);
+  setDisableAttribute(mapFilterInputs, false);
+  setupFunction(map, MAP_FADED_CLASS);
+  setupFunction(adForm, ADFORM_DISABLED_CLASS);
+  renderAdsOnMap();
+  mainPin.removeEventListener('click', setActiveCondition);
+};
 
+mainPin.addEventListener('click', setActiveCondition);
+setDisableAttribute(adFormFieldsets, true);
+setDisableAttribute(mapFilterSelects, true);
+setDisableAttribute(mapFilterInputs, true);
+
+addressInput.setAttribute('value', mainPinXCenter + ', ' + mainPinYCenter);
+
+
+mainPin.addEventListener('mouseup', function () {
+  addressInput.setAttribute('value', mainPinXCenter + ', ' + MAIN_PIN_ACTIVE_Y);
+});
