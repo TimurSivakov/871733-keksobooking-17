@@ -171,7 +171,7 @@ var changePriceValue = function () {
   for (var i = 0; i < adFormTypeSelect.length; i++) {
     if (adFormTypeSelect.value === TYPES_OF_HOUSING[i]) {
       var adFormPriceInputAttribute = MIN_PRICE_FOR_NIGHT[i];
-      adFormPriceInput.max = adFormPriceInputAttribute;
+      adFormPriceInput.min = adFormPriceInputAttribute;
       adFormPriceInput.placeholder = adFormPriceInputAttribute;
     }
   }
