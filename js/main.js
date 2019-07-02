@@ -37,7 +37,12 @@ var MAIN_PIN_ACTIVE_HEIGHT = MAIN_PIN_INACTIVE_HEIGHT + 22;
 var mainPinXCenter = MAIN_PIN_X + MAIN_PIN_WIDTH / 2;
 var mainPinYCenter = MAIN_PIN_Y + MAIN_PIN_INACTIVE_HEIGHT / 2;
 var MAIN_PIN_ACTIVE_Y = MAIN_PIN_Y + MAIN_PIN_ACTIVE_HEIGHT;
-var MIN_PRICE_FOR_NIGHT = [0, 1000, 5000, 10000];
+var MIN_PRICE_FOR_NIGHT = {
+  bungalo: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000
+};
 /**
  * Функция удаляет у элемента класс
  * @param {Element} className
