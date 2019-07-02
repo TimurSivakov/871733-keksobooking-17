@@ -206,5 +206,3 @@ adFormTimeOutSelect.addEventListener('change', function () {
     }
   }
 });
-
-
