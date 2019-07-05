@@ -172,14 +172,11 @@ var setActiveCondition = function () {
 /**
  * Функция меняет минимальное значение цены за ночь в зависимости от типа жилья
  */
-var changePriceValue = function () {
-  for (var i = 0; i < adFormTypeSelect.length; i++) {
-    if (adFormTypeSelect.value === TYPES_OF_HOUSING[i]) {
-      var adFormPriceInputAttribute = MIN_PRICE_FOR_NIGHT[i];
-      adFormPriceInput.min = adFormPriceInputAttribute;
-      adFormPriceInput.placeholder = adFormPriceInputAttribute;
-    }
-  }
+var setMinPrice = function () {
+  var typeSelectedIndex = adFormTypeSelect.selectedIndex;
+  var adFormPriceInputAttribute = Object.values(MIN_PRICE_FOR_NIGHT)[typeSelectedIndex];
+  adFormPriceInput.min = adFormPriceInputAttribute;
+  adFormPriceInput.placeholder = adFormPriceInputAttribute;
 };
 
 mainPin.addEventListener('click', setActiveCondition);
@@ -194,20 +191,18 @@ mainPin.addEventListener('mouseup', function () {
   addressInput.setAttribute('value', mainPinXCenter + ', ' + MAIN_PIN_ACTIVE_Y);
 });
 
-adFormTypeSelect.addEventListener('input', changePriceValue);
+adFormTypeSelect.addEventListener('input', setMinPrice);
 
 adFormTimeInSelect.addEventListener('change', function () {
-  for (var i = 0; i < adFormTimeInOption.length; i++) {
-    if (adFormTimeInSelect.value === adFormTimeInOption[i].value) {
-      adFormTimeOutSelect.value = adFormTimeOutOption[i].value;
-    }
+  var SelectedIndex = adFormTimeInSelect.selectedIndex;
+  if (adFormTimeInSelect.value === adFormTimeInOption[SelectedIndex].value) {
+    adFormTimeOutSelect.value = adFormTimeOutOption[SelectedIndex].value;
   }
 });
 
 adFormTimeOutSelect.addEventListener('change', function () {
-  for (var i = 0; i < adFormTimeOutOption.length; i++) {
-    if (adFormTimeOutSelect.value === adFormTimeOutOption[i].value) {
-      adFormTimeInSelect.value = adFormTimeInOption[i].value;
-    }
+  var SelectedIndex = adFormTimeOutSelect.selectedIndex;
+  if (adFormTimeOutSelect.value === adFormTimeOutOption[SelectedIndex].value) {
+    adFormTimeInSelect.value = adFormTimeInOption[SelectedIndex].value;
   }
 });
