@@ -5,11 +5,17 @@ var similarPinElement = map.querySelector('.map__pins');
 var mainPin = map.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
 var adFormFieldsets = adForm.querySelectorAll('.ad-form__element');
+var adFormTypeSelect = adForm.querySelector('#type');
+var adFormPriceInput = adForm.querySelector('#price');
+var adFormTimeInSelect = adForm.querySelector('#timein');
+var adFormTimeInOption = adFormTimeInSelect.querySelectorAll('option');
+var adFormTimeOutSelect = adForm.querySelector('#timeout');
+var adFormTimeOutOption = adFormTimeOutSelect.querySelectorAll('option');
 var mapFilterSelects = map.querySelectorAll('.map__filter');
 var mapFilterInputs = map.querySelectorAll('.map__checkbox');
 var addressInput = adForm.querySelector('#address');
 var USERS_AVATARS = ['01', '02', '03', '04', '05', '06', '07', '08'];
-var TYPES_OF_HOUSING = ['palace', 'flat', 'house', 'bungalo'];
+var TYPES_OF_HOUSING = ['bungalo', 'flat', 'house', 'palace'];
 var NUMBER_OF_ADS = 8;
 var MAP_FADED_CLASS = 'map--faded';
 var ADFORM_DISABLED_CLASS = 'ad-form--disabled';
@@ -31,6 +37,12 @@ var MAIN_PIN_ACTIVE_HEIGHT = MAIN_PIN_INACTIVE_HEIGHT + 22;
 var mainPinXCenter = MAIN_PIN_X + MAIN_PIN_WIDTH / 2;
 var mainPinYCenter = MAIN_PIN_Y + MAIN_PIN_INACTIVE_HEIGHT / 2;
 var MAIN_PIN_ACTIVE_Y = MAIN_PIN_Y + MAIN_PIN_ACTIVE_HEIGHT;
+var MIN_PRICE_FOR_NIGHT = {
+  bungalo: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000
+};
 /**
  * Функция удаляет у элемента класс
  * @param {Element} className
@@ -157,6 +169,16 @@ var setActiveCondition = function () {
   mainPin.removeEventListener('click', setActiveCondition);
 };
 
+/**
+ * Функция меняет минимальное значение цены за ночь в зависимости от типа жилья
+ */
+var setMinPrice = function () {
+  var typeSelectedIndex = adFormTypeSelect.selectedIndex;
+  var adFormPriceInputAttribute = Object.values(MIN_PRICE_FOR_NIGHT)[typeSelectedIndex];
+  adFormPriceInput.min = adFormPriceInputAttribute;
+  adFormPriceInput.placeholder = adFormPriceInputAttribute;
+};
+
 mainPin.addEventListener('click', setActiveCondition);
 setDisableAttribute(adFormFieldsets, true);
 setDisableAttribute(mapFilterSelects, true);
@@ -167,4 +189,20 @@ addressInput.setAttribute('value', mainPinXCenter + ', ' + mainPinYCenter);
 
 mainPin.addEventListener('mouseup', function () {
   addressInput.setAttribute('value', mainPinXCenter + ', ' + MAIN_PIN_ACTIVE_Y);
+});
+
+adFormTypeSelect.addEventListener('input', setMinPrice);
+
+adFormTimeInSelect.addEventListener('change', function () {
+  var SelectedIndex = adFormTimeInSelect.selectedIndex;
+  if (adFormTimeInSelect.value === adFormTimeInOption[SelectedIndex].value) {
+    adFormTimeOutSelect.value = adFormTimeOutOption[SelectedIndex].value;
+  }
+});
+
+adFormTimeOutSelect.addEventListener('change', function () {
+  var SelectedIndex = adFormTimeOutSelect.selectedIndex;
+  if (adFormTimeOutSelect.value === adFormTimeOutOption[SelectedIndex].value) {
+    adFormTimeInSelect.value = adFormTimeInOption[SelectedIndex].value;
+  }
 });
