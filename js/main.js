@@ -166,7 +166,7 @@ var setActiveCondition = function () {
   setupFunction(map, MAP_FADED_CLASS);
   setupFunction(adForm, ADFORM_DISABLED_CLASS);
   renderAdsOnMap();
-  mainPin.removeEventListener('click', setActiveCondition);
+  mainPin.removeEventListener('mouseup', setActiveCondition);
 };
 
 /**
