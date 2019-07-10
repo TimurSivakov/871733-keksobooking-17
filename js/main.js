@@ -201,3 +201,10 @@ adFormTimeOutSelect.addEventListener('change', function () {
     adFormTimeInSelect.value = adFormTimeInOption[SelectedIndex].value;
   }
 });
+
+mainPin.addEventListener('mousedown', function (evt) {
+  var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+});
