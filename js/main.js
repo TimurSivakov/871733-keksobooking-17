@@ -207,4 +207,10 @@ mainPin.addEventListener('mousedown', function (evt) {
     x: evt.clientX,
     y: evt.clientY
   };
+  var onMouseMove = function (moveEvt) {
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+  }
 });
