@@ -179,7 +179,7 @@ var setMinPrice = function () {
   adFormPriceInput.placeholder = adFormPriceInputAttribute;
 };
 
-mainPin.addEventListener('click', setActiveCondition);
+mainPin.addEventListener('mouseup', setActiveCondition);
 setDisableAttribute(adFormFieldsets, true);
 setDisableAttribute(mapFilterSelects, true);
 setDisableAttribute(mapFilterInputs, true);
