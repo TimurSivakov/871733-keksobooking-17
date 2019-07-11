@@ -179,6 +179,10 @@ var setMinPrice = function () {
   adFormPriceInput.placeholder = adFormPriceInputAttribute;
 };
 
+setDisableAttribute(adFormFieldsets, true);
+setDisableAttribute(mapFilterSelects, true);
+setDisableAttribute(mapFilterInputs, true);
+
 addressInput.setAttribute('value', mainPinXCenter + ', ' + mainPinYCenter);
 
 
@@ -217,14 +221,40 @@ mainPin.addEventListener('mousedown', function (evt) {
       x: moveEvt.clientX,
       y: moveEvt.clientY
     };
-    mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
+    if ((mainPin.offsetTop - shift.y) > MAP_Y_RANGE.min - PIN_HEIGHT) {
+      mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
+    } else {
+      mainPin.style.top = (MAP_Y_RANGE.min - PIN_HEIGHT) + 'px';
+    }
+    if ((mainPin.offsetTop - shift.y) < MAP_Y_RANGE.max - PIN_HEIGHT) {
+      mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
+    } else {
+      mainPin.style.top = (MAP_Y_RANGE.max - PIN_HEIGHT) + 'px';
+    }
+    // if ((mainPin.offsetLeft - shift.x)) {}
     mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
   };
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
-
+    setActiveCondition();
+    addressInput.setAttribute('value', mainPin.style.left + ', ' + mainPin.style.top);
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
   };
   document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
 });
+/**
+ * Функция меняет значение координат у главной метки
+ * @param {number} offset координаты главной метки
+ * @param {string} style
+ * @param {number} shift
+ * @param {number} mapRange
+ */
+var changeMainPinCoordinates = function (offset, style, shift, mapRange) {
+  if ((mainPin.offset - shift) > mapRange - PIN_HEIGHT) {
+    mainPin.style = (mainPin.offset - shift) + 'px';
+  } else {
+    mainPin.style.top = (mapRange - PIN_HEIGHT) + 'px';
+  }
+};
