@@ -221,18 +221,27 @@ mainPin.addEventListener('mousedown', function (evt) {
       x: moveEvt.clientX,
       y: moveEvt.clientY
     };
-    if ((mainPin.offsetTop - shift.y) > MAP_Y_RANGE.min - PIN_HEIGHT) {
-      mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
+    var mainPinNewY = mainPin.offsetTop - shift.y;
+    if (mainPinNewY > MAP_Y_RANGE.min - PIN_HEIGHT) {
+      mainPin.style.top = (mainPinNewY) + 'px';
     } else {
       mainPin.style.top = (MAP_Y_RANGE.min - PIN_HEIGHT) + 'px';
     }
-    if ((mainPin.offsetTop - shift.y) < MAP_Y_RANGE.max - PIN_HEIGHT) {
+    if (mainPinNewY < MAP_Y_RANGE.max - PIN_HEIGHT) {
       mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
     } else {
       mainPin.style.top = (MAP_Y_RANGE.max - PIN_HEIGHT) + 'px';
     }
-    // if ((mainPin.offsetLeft - shift.x)) {}
-    mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+    if ((mainPin.offsetLeft - shift.x) < MAP_X_RANGE.max) {
+      mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+    } else {
+      mainPin.style.left = MAP_X_RANGE.max + 'px';
+    }
+    if ((mainPin.offsetLeft - shift.x) > MAP_X_RANGE.min) {
+      mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+    } else {
+      mainPin.style.left = MAP_X_RANGE.min + 'px';
+    }
   };
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
@@ -244,17 +253,4 @@ mainPin.addEventListener('mousedown', function (evt) {
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
 });
-/**
- * Функция меняет значение координат у главной метки
- * @param {number} offset координаты главной метки
- * @param {string} style
- * @param {number} shift
- * @param {number} mapRange
- */
-var changeMainPinCoordinates = function (offset, style, shift, mapRange) {
-  if ((mainPin.offset - shift) > mapRange - PIN_HEIGHT) {
-    mainPin.style = (mainPin.offset - shift) + 'px';
-  } else {
-    mainPin.style.top = (mapRange - PIN_HEIGHT) + 'px';
-  }
-};
+
