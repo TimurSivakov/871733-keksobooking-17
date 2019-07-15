@@ -43,6 +43,7 @@ var MIN_PRICE_FOR_NIGHT = {
   house: 5000,
   palace: 10000
 };
+var mapIsEnabled = 'false';
 /**
  * Функция удаляет у элемента класс
  * @param {Element} className
