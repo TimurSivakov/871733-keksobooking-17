@@ -166,7 +166,7 @@ var setActiveCondition = function () {
   setupFunction(map, MAP_FADED_CLASS);
   setupFunction(adForm, ADFORM_DISABLED_CLASS);
   renderAdsOnMap();
-  mainPin.removeEventListener('click', setActiveCondition);
+  mainPin.removeEventListener('mouseup', setActiveCondition);
 };
 
 /**
@@ -179,7 +179,6 @@ var setMinPrice = function () {
   adFormPriceInput.placeholder = adFormPriceInputAttribute;
 };
 
-mainPin.addEventListener('click', setActiveCondition);
 setDisableAttribute(adFormFieldsets, true);
 setDisableAttribute(mapFilterSelects, true);
 setDisableAttribute(mapFilterInputs, true);
@@ -206,3 +205,52 @@ adFormTimeOutSelect.addEventListener('change', function () {
     adFormTimeInSelect.value = adFormTimeInOption[SelectedIndex].value;
   }
 });
+
+mainPin.addEventListener('mousedown', function (evt) {
+  var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+  var onMouseMove = function (moveEvt) {
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
+    };
+
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+    var mainPinNewY = mainPin.offsetTop - shift.y;
+    if (mainPinNewY > MAP_Y_RANGE.min - PIN_HEIGHT) {
+      mainPin.style.top = (mainPinNewY) + 'px';
+    } else {
+      mainPin.style.top = (MAP_Y_RANGE.min - PIN_HEIGHT) + 'px';
+    }
+    if (mainPinNewY < MAP_Y_RANGE.max - PIN_HEIGHT) {
+      mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
+    } else {
+      mainPin.style.top = (MAP_Y_RANGE.max - PIN_HEIGHT) + 'px';
+    }
+    if ((mainPin.offsetLeft - shift.x) < MAP_X_RANGE.max) {
+      mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+    } else {
+      mainPin.style.left = MAP_X_RANGE.max + 'px';
+    }
+    if ((mainPin.offsetLeft - shift.x) > MAP_X_RANGE.min) {
+      mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+    } else {
+      mainPin.style.left = MAP_X_RANGE.min + 'px';
+    }
+  };
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+    setActiveCondition();
+    addressInput.setAttribute('value', mainPin.style.left + ', ' + mainPin.style.top);
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
+
