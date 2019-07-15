@@ -161,13 +161,16 @@ var setDisableAttribute = function (selectors, isDisabled) {
  * Функция удаляет классы у элементов и удаляет событие
  */
 var setActiveCondition = function () {
-  setDisableAttribute(adFormFieldsets, false);
-  setDisableAttribute(mapFilterSelects, false);
-  setDisableAttribute(mapFilterInputs, false);
-  setupFunction(map, MAP_FADED_CLASS);
-  setupFunction(adForm, ADFORM_DISABLED_CLASS);
-  renderAdsOnMap();
-  mainPin.removeEventListener('mouseup', setActiveCondition);
+  if (mapIsEnabled === 'false') {
+    setDisableAttribute(adFormFieldsets, false);
+    setDisableAttribute(mapFilterSelects, false);
+    setDisableAttribute(mapFilterInputs, false);
+    setupFunction(map, MAP_FADED_CLASS);
+    setupFunction(adForm, ADFORM_DISABLED_CLASS);
+    renderAdsOnMap();
+    mainPin.removeEventListener('mouseup', setActiveCondition);
+    mapIsEnabled = 'true';
+  }
 };
 
 /**
