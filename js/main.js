@@ -221,27 +221,8 @@ mainPin.addEventListener('mousedown', function (evt) {
       x: moveEvt.clientX,
       y: moveEvt.clientY
     };
-    var mainPinNewY = mainPin.offsetTop - shift.y;
-    if (mainPinNewY > MAP_Y_RANGE.min - PIN_HEIGHT) {
-      mainPin.style.top = (mainPinNewY) + 'px';
-    } else {
-      mainPin.style.top = (MAP_Y_RANGE.min - PIN_HEIGHT) + 'px';
-    }
-    if (mainPinNewY < MAP_Y_RANGE.max - PIN_HEIGHT) {
-      mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
-    } else {
-      mainPin.style.top = (MAP_Y_RANGE.max - PIN_HEIGHT) + 'px';
-    }
-    if ((mainPin.offsetLeft - shift.x) < MAP_X_RANGE.max) {
-      mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
-    } else {
-      mainPin.style.left = MAP_X_RANGE.max + 'px';
-    }
-    if ((mainPin.offsetLeft - shift.x) > MAP_X_RANGE.min) {
-      mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
-    } else {
-      mainPin.style.left = MAP_X_RANGE.min + 'px';
-    }
+    mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
+    mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
   };
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
