@@ -99,7 +99,7 @@ var generateAds = function (avatars, types, mapX, mapY) {
     if (i < avatars.length) {
       var ad = {
         author: {
-          avatar: 'img/avatars/user' + avatars[i] + '.png'
+          avatar: 'img/avatars/user' + getRandomAdsParameter(avatars) + '.png'
         },
         offer: {
           type: getRandomAdsParameter(types)
