@@ -226,8 +226,12 @@ mainPin.addEventListener('mousedown', function (evt) {
       x: moveEvt.clientX,
       y: moveEvt.clientY
     };
-    mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
-    mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+    if (mainPin.offsetTop - shift.y > MAP_Y_RANGE.min - PIN_HEIGHT && mainPin.offsetTop - shift.y < MAP_Y_RANGE.max) {
+      mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
+    }
+    if (mainPin.offsetLeft - shift.x > MAP_X_RANGE.min - MAIN_PIN_WIDTH / 2 && mainPin.offsetLeft - shift.x < MAP_X_RANGE.max - MAIN_PIN_WIDTH / 2) {
+      mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+    }
   };
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
