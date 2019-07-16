@@ -216,6 +216,10 @@ mainPin.addEventListener('mousedown', function (evt) {
     x: evt.clientX,
     y: evt.clientY
   };
+  /**
+   * Функция изменяет координты у метки при передвижении
+   * @param {MouseEvent} moveEvt
+   */
   var onMouseMove = function (moveEvt) {
     var shift = {
       x: startCoords.x - moveEvt.clientX,
