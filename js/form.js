@@ -34,4 +34,28 @@
     adFormPriceInput.min = adFormPriceInputAttribute;
     adFormPriceInput.placeholder = adFormPriceInputAttribute;
   };
+  setDisableAttribute(adFormFieldsets, true);
+  setDisableAttribute(mapFilterSelects, true);
+  setDisableAttribute(mapFilterInputs, true);
+
+  addressInput.setAttribute('value', mainPinXCenter + ', ' + mainPinYCenter);
+  mainPin.addEventListener('mouseup', function () {
+    addressInput.setAttribute('value', mainPinXCenter + ', ' + MAIN_PIN_ACTIVE_Y);
+  });
+
+  adFormTypeSelect.addEventListener('input', setMinPrice);
+
+  adFormTimeInSelect.addEventListener('change', function () {
+    var SelectedIndex = adFormTimeInSelect.selectedIndex;
+    if (adFormTimeInSelect.value === adFormTimeInOption[SelectedIndex].value) {
+      adFormTimeOutSelect.value = adFormTimeOutOption[SelectedIndex].value;
+    }
+  });
+
+  adFormTimeOutSelect.addEventListener('change', function () {
+    var SelectedIndex = adFormTimeOutSelect.selectedIndex;
+    if (adFormTimeOutSelect.value === adFormTimeOutOption[SelectedIndex].value) {
+      adFormTimeInSelect.value = adFormTimeInOption[SelectedIndex].value;
+    }
+  });
 })();

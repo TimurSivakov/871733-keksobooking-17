@@ -41,4 +41,5 @@
     }
     return ads;
   };
+  window.generateAds = generateAds;
 })();
