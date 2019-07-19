@@ -17,14 +17,14 @@
   /**
    * Функция удаляет классы у элементов и удаляет событие
    */
-  var setActiveCondition = function () {
+  window.setActiveCondition = function () {
     if (deps.data.mapIsEnabled === 'false') {
       setDisableAttribute(deps.data.adFormFieldsets, false);
       setDisableAttribute(deps.data.mapFilterSelects, false);
       setDisableAttribute(deps.data.mapFilterInputs, false);
       deps.utils.setupFunction(deps.data.map, deps.data.MAP_FADED_CLASS);
       deps.utils.setupFunction(deps.data.adForm, deps.data.ADFORM_DISABLED_CLASS);
-      renderAdsOnMap();
+      window.renderAdsOnMap();
       deps.data.mainPin.removeEventListener('mouseup', setActiveCondition);
       deps.data.mapIsEnabled = 'true';
     }

@@ -25,7 +25,7 @@
    * Функция заполняет блок дом элементами
    * @return {void} возвращает блок с добавленными метками предложений
    */
-  var renderAdsOnMap = function () {
+  window.renderAdsOnMap = function () {
     var fragment = document.createDocumentFragment();
     var ads = window.generateAds(deps.data.USERS_AVATARS, deps.data.TYPES_OF_HOUSING, deps.data.MAP_X_RANGE, deps.data.MAP_Y_RANGE);
     for (var i = 0; i < window.maxAdsNumber; i++) {
@@ -61,7 +61,7 @@
     };
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
-      setActiveCondition();
+      window.setActiveCondition();
       deps.data.addressInput.setAttribute('value', deps.data.mainPin.style.left + ', ' + deps.data.mainPin.style.top);
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
