@@ -33,7 +33,7 @@
     }
     deps.data.similarPinElement.appendChild(fragment);
   };
-  mainPin.addEventListener('mousedown', function (evt) {
+  deps.data.mainPin.addEventListener('mousedown', function (evt) {
     var startCoords = {
       x: evt.clientX,
       y: evt.clientY
@@ -52,17 +52,17 @@
         x: moveEvt.clientX,
         y: moveEvt.clientY
       };
-      if (mainPin.offsetTop - shift.y > MAP_Y_RANGE.min - PIN_HEIGHT && mainPin.offsetTop - shift.y < MAP_Y_RANGE.max) {
-        mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
+      if (deps.data.mainPin.offsetTop - shift.y > deps.data.MAP_Y_RANGE.min - deps.data.PIN_HEIGHT && deps.data.mainPin.offsetTop - shift.y < deps.data.MAP_Y_RANGE.max) {
+        deps.data.mainPin.style.top = (deps.data.mainPin.offsetTop - shift.y) + 'px';
       }
-      if (mainPin.offsetLeft - shift.x > MAP_X_RANGE.min - MAIN_PIN_WIDTH / 2 && mainPin.offsetLeft - shift.x < MAP_X_RANGE.max - MAIN_PIN_WIDTH / 2) {
-        mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+      if (deps.data.mainPin.offsetLeft - shift.x > deps.data.MAP_X_RANGE.min - deps.data.MAIN_PIN_WIDTH / 2 && deps.data.mainPin.offsetLeft - shift.x < deps.data.MAP_X_RANGE.max - deps.data.MAIN_PIN_WIDTH / 2) {
+        deps.data.mainPin.style.left = (deps.data.mainPin.offsetLeft - shift.x) + 'px';
       }
     };
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
       setActiveCondition();
-      addressInput.setAttribute('value', mainPin.style.left + ', ' + mainPin.style.top);
+      deps.data.addressInput.setAttribute('value', deps.data.mainPin.style.left + ', ' + deps.data.mainPin.style.top);
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };

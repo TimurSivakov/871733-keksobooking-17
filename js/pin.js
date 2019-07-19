@@ -1,5 +1,8 @@
 'use strict';
 (function () {
+  var deps = {
+    data: window.data
+  };
   /**
    * Функция создает массив объявлений неподалеку
    * @param {string[]} avatars фотографии пользователей
@@ -20,7 +23,7 @@
    */
   var generateAds = function (avatars, types, mapX, mapY) {
     var ads = [];
-    for (var i = 0; i < NUMBER_OF_ADS; i++) {
+    for (var i = 0; i < deps.data.NUMBER_OF_ADS; i++) {
       if (i < avatars.length) {
         var ad = {
           author: {

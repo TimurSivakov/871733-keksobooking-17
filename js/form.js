@@ -1,5 +1,8 @@
 'use strict';
 (function () {
+  var deps = {
+    data: window.data
+  };
   /**
    * Функция устанавливает атрибут disabled на выбранный селектор
    * @param {RadioNodeList|HTMLElement|Element} selectors
@@ -14,48 +17,48 @@
    * Функция удаляет классы у элементов и удаляет событие
    */
   var setActiveCondition = function () {
-    if (mapIsEnabled === 'false') {
-      setDisableAttribute(adFormFieldsets, false);
-      setDisableAttribute(mapFilterSelects, false);
-      setDisableAttribute(mapFilterInputs, false);
-      setupFunction(map, MAP_FADED_CLASS);
-      setupFunction(adForm, ADFORM_DISABLED_CLASS);
+    if (deps.data.mapIsEnabled === 'false') {
+      setDisableAttribute(deps.data.adFormFieldsets, false);
+      setDisableAttribute(deps.data.mapFilterSelects, false);
+      setDisableAttribute(deps.data.mapFilterInputs, false);
+      setupFunction(deps.data.map, deps.data.MAP_FADED_CLASS);
+      setupFunction(deps.data.adForm, deps.data.ADFORM_DISABLED_CLASS);
       renderAdsOnMap();
-      mainPin.removeEventListener('mouseup', setActiveCondition);
-      mapIsEnabled = 'true';
+      deps.data.mainPin.removeEventListener('mouseup', setActiveCondition);
+      deps.data.mapIsEnabled = 'true';
     }
   };
   /**
    * Функция меняет минимальное значение цены за ночь в зависимости от типа жилья
    */
   var setMinPrice = function () {
-    var typeSelectedIndex = adFormTypeSelect.selectedIndex;
-    var adFormPriceInputAttribute = Object.values(MIN_PRICE_FOR_NIGHT)[typeSelectedIndex];
-    adFormPriceInput.min = adFormPriceInputAttribute;
-    adFormPriceInput.placeholder = adFormPriceInputAttribute;
+    var typeSelectedIndex = deps.data.adFormTypeSelect.selectedIndex;
+    var adFormPriceInputAttribute = Object.values(deps.data.MIN_PRICE_FOR_NIGHT)[typeSelectedIndex];
+    deps.data.adFormPriceInput.min = adFormPriceInputAttribute;
+    deps.data.adFormPriceInput.placeholder = adFormPriceInputAttribute;
   };
-  setDisableAttribute(adFormFieldsets, true);
-  setDisableAttribute(mapFilterSelects, true);
-  setDisableAttribute(mapFilterInputs, true);
+  setDisableAttribute(deps.data.adFormFieldsets, true);
+  setDisableAttribute(deps.data.mapFilterSelects, true);
+  setDisableAttribute(deps.data.mapFilterInputs, true);
 
-  addressInput.setAttribute('value', mainPinXCenter + ', ' + mainPinYCenter);
-  mainPin.addEventListener('mouseup', function () {
-    addressInput.setAttribute('value', mainPinXCenter + ', ' + MAIN_PIN_ACTIVE_Y);
+  deps.data.addressInput.setAttribute('value', deps.data.mainPinXCenter + ', ' + deps.data.mainPinYCenter);
+  deps.data.mainPin.addEventListener('mouseup', function () {
+    deps.data.addressInput.setAttribute('value', deps.data.mainPinXCenter + ', ' + deps.data.MAIN_PIN_ACTIVE_Y);
   });
 
-  adFormTypeSelect.addEventListener('input', setMinPrice);
+  deps.data.adFormTypeSelect.addEventListener('input', setMinPrice);
 
-  adFormTimeInSelect.addEventListener('change', function () {
-    var SelectedIndex = adFormTimeInSelect.selectedIndex;
-    if (adFormTimeInSelect.value === adFormTimeInOption[SelectedIndex].value) {
-      adFormTimeOutSelect.value = adFormTimeOutOption[SelectedIndex].value;
+  deps.data.adFormTimeInSelect.addEventListener('change', function () {
+    var SelectedIndex = deps.data.adFormTimeInSelect.selectedIndex;
+    if (deps.data.adFormTimeInSelect.value === deps.data.adFormTimeInOption[SelectedIndex].value) {
+      deps.data.adFormTimeOutSelect.value = deps.data.adFormTimeOutOption[SelectedIndex].value;
     }
   });
 
-  adFormTimeOutSelect.addEventListener('change', function () {
-    var SelectedIndex = adFormTimeOutSelect.selectedIndex;
-    if (adFormTimeOutSelect.value === adFormTimeOutOption[SelectedIndex].value) {
-      adFormTimeInSelect.value = adFormTimeInOption[SelectedIndex].value;
+  deps.data.adFormTimeOutSelect.addEventListener('change', function () {
+    var SelectedIndex = deps.data.adFormTimeOutSelect.selectedIndex;
+    if (deps.data.adFormTimeOutSelect.value === deps.data.adFormTimeOutOption[SelectedIndex].value) {
+      deps.data.adFormTimeInSelect.value = deps.data.adFormTimeInOption[SelectedIndex].value;
     }
   });
 })();
