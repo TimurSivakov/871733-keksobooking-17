@@ -25,7 +25,7 @@
       deps.utils.setupFunction(deps.data.map, deps.data.MAP_FADED_CLASS);
       deps.utils.setupFunction(deps.data.adForm, deps.data.ADFORM_DISABLED_CLASS);
       window.renderAdsOnMap();
-      deps.data.mainPin.removeEventListener('mouseup', setActiveCondition);
+      deps.data.mainPin.removeEventListener('mouseup', window.setActiveCondition);
       deps.data.mapIsEnabled = 'true';
     }
   };
