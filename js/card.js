@@ -5,7 +5,7 @@
    * @param {string[]} adsParameters
    * @return {string} возвращает элемент массива характеристик объявления
    */
-  var getRandomAdsParameter = function (adsParameters) {
+  window.getRandomAdsParameter = function (adsParameters) {
     return adsParameters[Math.floor(Math.random() * adsParameters.length)];
   };
 })();

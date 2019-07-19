@@ -1,7 +1,8 @@
 'use strict';
 (function () {
   var deps = {
-    data: window.data
+    data: window.data,
+    utils: window.utils
   };
   /**
    * Функция создает массив объявлений неподалеку
@@ -27,14 +28,14 @@
       if (i < avatars.length) {
         var ad = {
           author: {
-            avatar: 'img/avatars/user' + getRandomAdsParameter(avatars) + '.png'
+            avatar: 'img/avatars/user' + window.getRandomAdsParameter(avatars) + '.png'
           },
           offer: {
-            type: getRandomAdsParameter(types)
+            type: window.getRandomAdsParameter(types)
           },
           location: {
-            x: generateRandomInteger(mapX.min, mapX.max),
-            y: generateRandomInteger(mapY.min, mapY.max)
+            x: deps.utils.generateRandomInteger(mapX.min, mapX.max),
+            y: deps.utils.generateRandomInteger(mapY.min, mapY.max)
           }
         };
         ads.push(ad);
@@ -44,5 +45,5 @@
     }
     return ads;
   };
-  window.generateAds = generateAds;
+  // window.generateAds = generateAds;
 })();
