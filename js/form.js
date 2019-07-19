@@ -25,4 +25,13 @@
       mapIsEnabled = 'true';
     }
   };
+  /**
+   * Функция меняет минимальное значение цены за ночь в зависимости от типа жилья
+   */
+  var setMinPrice = function () {
+    var typeSelectedIndex = adFormTypeSelect.selectedIndex;
+    var adFormPriceInputAttribute = Object.values(MIN_PRICE_FOR_NIGHT)[typeSelectedIndex];
+    adFormPriceInput.min = adFormPriceInputAttribute;
+    adFormPriceInput.placeholder = adFormPriceInputAttribute;
+  };
 })();
