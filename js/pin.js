@@ -22,7 +22,7 @@
    *   offer: string
    * }[]} массив объявлений
    */
-  var generateAds = function (avatars, types, mapX, mapY) {
+  window.generateAds = function (avatars, types, mapX, mapY) {
     var ads = [];
     for (var i = 0; i < deps.data.NUMBER_OF_ADS; i++) {
       if (i < avatars.length) {
@@ -45,5 +45,4 @@
     }
     return ads;
   };
-  // window.generateAds = generateAds;
 })();
