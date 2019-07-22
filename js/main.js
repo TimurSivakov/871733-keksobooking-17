@@ -43,6 +43,9 @@ var MIN_PRICE_FOR_NIGHT = {
   house: 5000,
   palace: 10000
 };
+var mapIsEnabled = 'false';
+var maxAdsNumber = 5;
+
 /**
  * Функция удаляет у элемента класс
  * @param {Element} className
@@ -97,7 +100,7 @@ var generateAds = function (avatars, types, mapX, mapY) {
     if (i < avatars.length) {
       var ad = {
         author: {
-          avatar: 'img/avatars/user' + avatars[i] + '.png'
+          avatar: 'img/avatars/user' + getRandomAdsParameter(avatars) + '.png'
         },
         offer: {
           type: getRandomAdsParameter(types)
@@ -133,6 +136,7 @@ var renderMapPin = function (ad, pinWidth, pinHeight) {
   pin.children[0].alt = 'Заголовок объявления';
   return pin;
 };
+
 /**
  * Функция заполняет блок дом элементами
  * @return {void} возвращает блок с добавленными метками предложений
@@ -140,7 +144,7 @@ var renderMapPin = function (ad, pinWidth, pinHeight) {
 var renderAdsOnMap = function () {
   var fragment = document.createDocumentFragment();
   var ads = generateAds(USERS_AVATARS, TYPES_OF_HOUSING, MAP_X_RANGE, MAP_Y_RANGE);
-  for (var i = 0; i < ads.length; i++) {
+  for (var i = 0; i < maxAdsNumber; i++) {
     fragment.appendChild(renderMapPin(ads[i], PIN_WIDTH, PIN_HEIGHT));
   }
   similarPinElement.appendChild(fragment);
@@ -160,13 +164,16 @@ var setDisableAttribute = function (selectors, isDisabled) {
  * Функция удаляет классы у элементов и удаляет событие
  */
 var setActiveCondition = function () {
-  setDisableAttribute(adFormFieldsets, false);
-  setDisableAttribute(mapFilterSelects, false);
-  setDisableAttribute(mapFilterInputs, false);
-  setupFunction(map, MAP_FADED_CLASS);
-  setupFunction(adForm, ADFORM_DISABLED_CLASS);
-  renderAdsOnMap();
-  mainPin.removeEventListener('mouseup', setActiveCondition);
+  if (mapIsEnabled === 'false') {
+    setDisableAttribute(adFormFieldsets, false);
+    setDisableAttribute(mapFilterSelects, false);
+    setDisableAttribute(mapFilterInputs, false);
+    setupFunction(map, MAP_FADED_CLASS);
+    setupFunction(adForm, ADFORM_DISABLED_CLASS);
+    renderAdsOnMap();
+    mainPin.removeEventListener('mouseup', setActiveCondition);
+    mapIsEnabled = 'true';
+  }
 };
 
 /**
@@ -184,7 +191,6 @@ setDisableAttribute(mapFilterSelects, true);
 setDisableAttribute(mapFilterInputs, true);
 
 addressInput.setAttribute('value', mainPinXCenter + ', ' + mainPinYCenter);
-
 
 mainPin.addEventListener('mouseup', function () {
   addressInput.setAttribute('value', mainPinXCenter + ', ' + MAIN_PIN_ACTIVE_Y);
@@ -211,6 +217,10 @@ mainPin.addEventListener('mousedown', function (evt) {
     x: evt.clientX,
     y: evt.clientY
   };
+  /**
+   * Функция изменяет координты у метки при передвижении
+   * @param {MouseEvent} moveEvt
+   */
   var onMouseMove = function (moveEvt) {
     var shift = {
       x: startCoords.x - moveEvt.clientX,
@@ -221,26 +231,11 @@ mainPin.addEventListener('mousedown', function (evt) {
       x: moveEvt.clientX,
       y: moveEvt.clientY
     };
-    var mainPinNewY = mainPin.offsetTop - shift.y;
-    if (mainPinNewY > MAP_Y_RANGE.min - PIN_HEIGHT) {
-      mainPin.style.top = (mainPinNewY) + 'px';
-    } else {
-      mainPin.style.top = (MAP_Y_RANGE.min - PIN_HEIGHT) + 'px';
-    }
-    if (mainPinNewY < MAP_Y_RANGE.max - PIN_HEIGHT) {
+    if (mainPin.offsetTop - shift.y > MAP_Y_RANGE.min - PIN_HEIGHT && mainPin.offsetTop - shift.y < MAP_Y_RANGE.max) {
       mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
-    } else {
-      mainPin.style.top = (MAP_Y_RANGE.max - PIN_HEIGHT) + 'px';
     }
-    if ((mainPin.offsetLeft - shift.x) < MAP_X_RANGE.max) {
+    if (mainPin.offsetLeft - shift.x > MAP_X_RANGE.min - MAIN_PIN_WIDTH / 2 && mainPin.offsetLeft - shift.x < MAP_X_RANGE.max - MAIN_PIN_WIDTH / 2) {
       mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
-    } else {
-      mainPin.style.left = MAP_X_RANGE.max + 'px';
-    }
-    if ((mainPin.offsetLeft - shift.x) > MAP_X_RANGE.min) {
-      mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
-    } else {
-      mainPin.style.left = MAP_X_RANGE.min + 'px';
     }
   };
   var onMouseUp = function (upEvt) {
@@ -253,4 +248,3 @@ mainPin.addEventListener('mousedown', function (evt) {
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
 });
-
