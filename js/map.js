@@ -5,7 +5,7 @@
   };
   /**
    * Функция заполняет блок дом элементами
-   * @return {void} возвращает блок с добавленными метками предложений
+   * {void}
    */
   window.renderAdsOnMap = function () {
     var fragment = document.createDocumentFragment();
