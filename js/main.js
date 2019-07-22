@@ -45,6 +45,7 @@ var MIN_PRICE_FOR_NIGHT = {
 };
 var mapIsEnabled = 'false';
 var maxAdsNumber = 5;
+
 /**
  * Функция удаляет у элемента класс
  * @param {Element} className
@@ -135,6 +136,7 @@ var renderMapPin = function (ad, pinWidth, pinHeight) {
   pin.children[0].alt = 'Заголовок объявления';
   return pin;
 };
+
 /**
  * Функция заполняет блок дом элементами
  * @return {void} возвращает блок с добавленными метками предложений
@@ -189,7 +191,6 @@ setDisableAttribute(mapFilterSelects, true);
 setDisableAttribute(mapFilterInputs, true);
 
 addressInput.setAttribute('value', mainPinXCenter + ', ' + mainPinYCenter);
-
 
 mainPin.addEventListener('mouseup', function () {
   addressInput.setAttribute('value', mainPinXCenter + ', ' + MAIN_PIN_ACTIVE_Y);

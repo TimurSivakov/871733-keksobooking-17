@@ -1,48 +1,24 @@
 'use strict';
 (function () {
   var deps = {
-    data: window.data,
-    utils: window.utils
+    data: window.data
   };
   /**
-   * Функция создает массив объявлений неподалеку
-   * @param {string[]} avatars фотографии пользователей
-   * @param {string[]} types тип жилья
+   * Функция создает новый dom элемент с разметкой из шаблона
    * @param {{
-   *   min: number,
-   *   max: number
-   *   }} mapX координата x метки на карте
-   * @param {{
-   *   min: number,
-   *   max: number
-   * }} mapY координата y метки на карте
-   * @return {{
    *   location: string,
-   *   author: string,
-   *   offer: string
-   * }[]} массив объявлений
+   *   author: string
+   * }} ad
+   * @param {number} pinWidth Ширина блока метки на карте
+   * @param {number} pinHeight Высота блока метки на карте
+   * @return {Node}
    */
-  window.generateAds = function (avatars, types, mapX, mapY) {
-    var ads = [];
-    for (var i = 0; i < deps.data.NUMBER_OF_ADS; i++) {
-      if (i < avatars.length) {
-        var ad = {
-          author: {
-            avatar: 'img/avatars/user' + window.getRandomAdsParameter(avatars) + '.png'
-          },
-          offer: {
-            type: window.getRandomAdsParameter(types)
-          },
-          location: {
-            x: deps.utils.generateRandomInteger(mapX.min, mapX.max),
-            y: deps.utils.generateRandomInteger(mapY.min, mapY.max)
-          }
-        };
-        ads.push(ad);
-      } else {
-        throw new Error('Не хватает предложений');
-      }
-    }
-    return ads;
+  window.renderMapPin = function (ad, pinWidth, pinHeight) {
+    var pin = deps.data.similarPinTemplate.cloneNode(true);
+    pin.style.left = (ad.location.x - pinWidth / 2) + 'px';
+    pin.style.top = (ad.location.y - pinHeight) + 'px';
+    pin.children[0].src = ad.author.avatar;
+    pin.children[0].alt = 'Заголовок объявления';
+    return pin;
   };
 })();

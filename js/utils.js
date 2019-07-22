@@ -20,6 +20,14 @@
      */
     setupFunction: function (className, classForRemove) {
       return className.classList.remove(classForRemove);
+    },
+    /**
+     * Функция возвращает рандомный элемент из массива характеристик объявления
+     * @param {string[]} adsParameters
+     * @return {string} возвращает элемент массива характеристик объявления
+     */
+    getRandomAdsParameter: function (adsParameters) {
+      return adsParameters[Math.floor(Math.random() * adsParameters.length)];
     }
   };
 })();
