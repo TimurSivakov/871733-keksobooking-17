@@ -143,7 +143,7 @@ var renderMapPin = function (ad, pinWidth, pinHeight) {
  */
 var renderAdsOnMap = function () {
   var fragment = document.createDocumentFragment();
-  // var ads = generateAds(USERS_AVATARS, TYPES_OF_HOUSING, MAP_X_RANGE, MAP_Y_RANGE);
+  var ads = generateAds(USERS_AVATARS, TYPES_OF_HOUSING, MAP_X_RANGE, MAP_Y_RANGE);
   for (var i = 0; i < maxAdsNumber; i++) {
     fragment.appendChild(renderMapPin(ads[i], PIN_WIDTH, PIN_HEIGHT));
   }
