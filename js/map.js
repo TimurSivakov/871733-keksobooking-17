@@ -9,7 +9,6 @@
    */
   window.renderAdsOnMap = function () {
     var fragment = document.createDocumentFragment();
-    // var ads = window.generateAds(deps.data.USERS_AVATARS, deps.data.TYPES_OF_HOUSING, deps.data.MAP_X_RANGE, deps.data.MAP_Y_RANGE);
     for (var i = 0; i < deps.data.maxAdsNumber; i++) {
       fragment.appendChild(window.renderMapPin(window.ads[i], deps.data.PIN_WIDTH, deps.data.PIN_HEIGHT));
     }
