@@ -1,39 +1,22 @@
 'use strict';
 (function () {
-  var onError = function (message) {
-    console.error(message);
+  var onError = function () {
+    var fragment = document.createDocumentFragment();
+    var errorMessage = window.data.similarErrorMessage.cloneNode(true);
+    fragment.appendChild(errorMessage);
+    window.data.main.appendChild(fragment);
+    errorMessage.addEventListener('click', function () {
+      window.data.main.removeChild(fragment);
+    });
   };
-
-  var onSuccess = function (data) {
-    var animals = data;
-
-    console.log(animals);
-  };
-
   var URL = 'https://js.dump.academy/keksobooking/data';
   window.xhr = new XMLHttpRequest();
   window.xhr.responseType = 'json';
   window.xhr.addEventListener('load', function () {
-    window.ads = window.xhr.response;
-    var error;
-    switch (window.xhr.status) {
-      case 200:
-        onSuccess(window.xhr.response);
-        break;
-      case 400:
-        error = 'Неверный запрос';
-        break;
-      case 401:
-        error = 'Пользователь не авторизован';
-        break;
-      case 404:
-        error = 'Ничего не найдено';
-        break;
-      default:
-        error = 'Cтатус ответа: : ' + window.xhr.status + ' ' + window.xhr.statusText;
-    }
-    if (error) {
-      onError(error);
+    if (window.xhr.status === 200) {
+      window.ads = window.xhr.response;
+    } else {
+      onError();
     }
   });
   window.xhr.open('GET', URL);
