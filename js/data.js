@@ -1,7 +1,9 @@
 'use strict';
 (function () {
+  var main = document.querySelector('main');
   var map = document.querySelector('.map');
   var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+  var similarErrorMessage = document.querySelector('#error').content.querySelector('.error');
   var similarPinElement = map.querySelector('.map__pins');
   var mainPin = map.querySelector('.map__pin--main');
   var adForm = document.querySelector('.ad-form');
@@ -46,10 +48,14 @@
   };
   var mapIsEnabled = 'false';
   var maxAdsNumber = 5;
+  var errorButton = main.querySelector('.error_button');
 
   window.data = {
+    main: main,
+    errorButton: errorButton,
     map: map,
     similarPinTemplate: similarPinTemplate,
+    similarErrorMessage: similarErrorMessage,
     similarPinElement: similarPinElement,
     mainPin: mainPin,
     adForm: adForm,

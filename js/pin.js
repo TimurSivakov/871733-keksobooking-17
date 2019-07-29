@@ -18,7 +18,7 @@
     pin.style.left = (ad.location.x - pinWidth / 2) + 'px';
     pin.style.top = (ad.location.y - pinHeight) + 'px';
     pin.children[0].src = ad.author.avatar;
-    pin.children[0].alt = 'Заголовок объявления';
+    pin.children[0].alt = 'Метка объявления';
     return pin;
   };
 })();
