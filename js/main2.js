@@ -1,5 +1,9 @@
 'use strict';
-(function () {
-  window.load.getDatafromServer();
-  window.filter.filterAds();
-})();
+
+var deps = {
+  load: window.load,
+  filter: window.filter
+};
+deps.load.getDataFromServer();
+
+
