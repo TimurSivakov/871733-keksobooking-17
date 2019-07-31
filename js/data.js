@@ -49,7 +49,8 @@
   var mapIsEnabled = 'false';
   var maxAdsNumber = 5;
   var errorButton = main.querySelector('.error_button');
-
+  var filters = map.querySelector('.map__filters');
+  var filterTypeSelect = filters.querySelector('#housing-type');
   window.data = {
     main: main,
     errorButton: errorButton,
@@ -88,6 +89,8 @@
     MAIN_PIN_ACTIVE_Y: MAIN_PIN_ACTIVE_Y,
     MIN_PRICE_FOR_NIGHT: MIN_PRICE_FOR_NIGHT,
     mapIsEnabled: mapIsEnabled,
-    maxAdsNumber: maxAdsNumber
+    maxAdsNumber: maxAdsNumber,
+    filters: filters,
+    filterTypeSelect: filterTypeSelect
   };
 })();
