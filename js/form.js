@@ -2,7 +2,8 @@
 (function () {
   var deps = {
     data: window.data,
-    utils: window.utils
+    utils: window.utils,
+    map: window.map
   };
   /**
    * Функция устанавливает атрибут disabled на выбранный селектор
@@ -24,7 +25,7 @@
       setDisableAttribute(deps.data.mapFilterInputs, false);
       deps.utils.setupFunction(deps.data.map, deps.data.MAP_FADED_CLASS);
       deps.utils.setupFunction(deps.data.adForm, deps.data.ADFORM_DISABLED_CLASS);
-      window.renderAdsOnMap();
+      deps.map.renderAdsOnMap();
       deps.data.mainPin.removeEventListener('mouseup', window.setActiveCondition);
       deps.data.mapIsEnabled = 'true';
     }

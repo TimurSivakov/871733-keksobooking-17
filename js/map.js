@@ -3,16 +3,18 @@
   var deps = {
     data: window.data
   };
-  /**
-   * Функция заполняет блок дом элементами
-   * {void}
-   */
-  window.renderAdsOnMap = function () {
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < window.ads.length; i++) {
-      fragment.appendChild(window.renderMapPin(window.ads[i], deps.data.PIN_WIDTH, deps.data.PIN_HEIGHT));
+  window.map = {
+    /**
+     * Функция заполняет блок дом элементами
+     * {void}
+     */
+    renderAdsOnMap: function () {
+      var fragment = document.createDocumentFragment();
+      for (var i = 0; i < window.ads.length; i++) {
+        fragment.appendChild(window.renderMapPin(window.ads[i], deps.data.PIN_WIDTH, deps.data.PIN_HEIGHT));
+      }
+      deps.data.similarPinElement.appendChild(fragment);
     }
-    deps.data.similarPinElement.appendChild(fragment);
   };
   deps.data.mainPin.addEventListener('mousedown', function (evt) {
     var startCoords = {
