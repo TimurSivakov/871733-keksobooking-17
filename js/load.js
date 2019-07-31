@@ -15,6 +15,11 @@
   window.xhr.addEventListener('load', function () {
     if (window.xhr.status === 200) {
       window.ads = window.xhr.response;
+      console.log(window.ads);
+      var adsFilter = window.ads.filter(function (ad) {
+        return ad.offer.type === 'house';
+      });
+      console.log(adsFilter);
     } else {
       onError();
     }
