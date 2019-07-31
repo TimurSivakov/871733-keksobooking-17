@@ -48,7 +48,7 @@
   };
   var mapIsEnabled = 'false';
   var maxAdsNumber = 5;
-  var errorButton = main.querySelector('.error_button');
+  var errorButton = main.querySelector('.error__button');
   var filters = map.querySelector('.map__filters');
   var filterTypeSelect = filters.querySelector('#housing-type');
   window.data = {

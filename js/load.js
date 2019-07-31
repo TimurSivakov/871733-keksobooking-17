@@ -7,7 +7,7 @@
       fragment.appendChild(errorMessage);
       window.data.main.appendChild(fragment);
       errorMessage.addEventListener('click', function () {
-        window.data.main.removeChild(fragment);
+        window.data.main.removeChild(errorMessage);
       });
     },
     getDataFromServer: function () {
