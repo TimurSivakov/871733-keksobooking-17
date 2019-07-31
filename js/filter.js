@@ -1,4 +1,8 @@
 'use strict';
 (function () {
-  window.filteredAds = window.ads.slice();
+  window.filter = {
+    filterAds: function () {
+      window.filteredAds = window.ads.slice();
+    }
+  };
 })();
