@@ -47,13 +47,18 @@
       window.form.setDisableAttribute(deps.data.adFormFieldsets, true);
       window.form.setDisableAttribute(deps.data.mapFilterSelects, true);
       window.form.setDisableAttribute(deps.data.mapFilterInputs, true);
+    },
+    /**
+     * Функция устанвалиавет координты главной метки в форму
+     */
+    setMainPinAddressInput: function () {
+      deps.data.addressInput.setAttribute('value', deps.data.mainPinXCenter + ', ' + deps.data.mainPinYCenter);
+      deps.data.mainPin.addEventListener('mouseup', function () {
+        deps.data.addressInput.setAttribute('value', deps.data.mainPinXCenter + ', ' + deps.data.MAIN_PIN_ACTIVE_Y);
+      });
     }
   };
 
-  deps.data.addressInput.setAttribute('value', deps.data.mainPinXCenter + ', ' + deps.data.mainPinYCenter);
-  deps.data.mainPin.addEventListener('mouseup', function () {
-    deps.data.addressInput.setAttribute('value', deps.data.mainPinXCenter + ', ' + deps.data.MAIN_PIN_ACTIVE_Y);
-  });
 
   deps.data.adFormTypeSelect.addEventListener('input', window.form.setMinPrice);
 
