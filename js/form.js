@@ -31,20 +31,17 @@
         deps.data.mapIsEnabled = 'true';
       }
     },
-
-
+    /**
+     * Функция меняет минимальное значение цены за ночь в зависимости от типа жилья
+     */
+    setMinPrice: function () {
+      var typeSelectedIndex = deps.data.adFormTypeSelect.selectedIndex;
+      var adFormPriceInputAttribute = Object.values(deps.data.MIN_PRICE_FOR_NIGHT)[typeSelectedIndex];
+      deps.data.adFormPriceInput.min = adFormPriceInputAttribute;
+      deps.data.adFormPriceInput.placeholder = adFormPriceInputAttribute;
+    }
   };
 
-
-  /**
-   * Функция меняет минимальное значение цены за ночь в зависимости от типа жилья
-   */
-  var setMinPrice = function () {
-    var typeSelectedIndex = deps.data.adFormTypeSelect.selectedIndex;
-    var adFormPriceInputAttribute = Object.values(deps.data.MIN_PRICE_FOR_NIGHT)[typeSelectedIndex];
-    deps.data.adFormPriceInput.min = adFormPriceInputAttribute;
-    deps.data.adFormPriceInput.placeholder = adFormPriceInputAttribute;
-  };
   window.form.setDisableAttribute(deps.data.adFormFieldsets, true);
   window.form.setDisableAttribute(deps.data.mapFilterSelects, true);
   window.form.setDisableAttribute(deps.data.mapFilterInputs, true);
@@ -54,7 +51,7 @@
     deps.data.addressInput.setAttribute('value', deps.data.mainPinXCenter + ', ' + deps.data.MAIN_PIN_ACTIVE_Y);
   });
 
-  deps.data.adFormTypeSelect.addEventListener('input', setMinPrice);
+  deps.data.adFormTypeSelect.addEventListener('input', window.form.setMinPrice);
 
   deps.data.adFormTimeInSelect.addEventListener('change', function () {
     var SelectedIndex = deps.data.adFormTimeInSelect.selectedIndex;
