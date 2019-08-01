@@ -16,24 +16,26 @@
         selectors[i].disabled = isDisabled;
       }
     },
+    /**
+     * Функция удаляет классы у элементов и удаляет событие
+     */
+    setActiveCondition: function () {
+      if (deps.data.mapIsEnabled === 'false') {
+        window.form.setDisableAttribute(deps.data.adFormFieldsets, false);
+        window.form.setDisableAttribute(deps.data.mapFilterSelects, false);
+        window.form.setDisableAttribute(deps.data.mapFilterInputs, false);
+        deps.utils.setupFunction(deps.data.map, deps.data.MAP_FADED_CLASS);
+        deps.utils.setupFunction(deps.data.adForm, deps.data.ADFORM_DISABLED_CLASS);
+        deps.map.renderAdsOnMap();
+        deps.data.mainPin.removeEventListener('mouseup', window.form.setActiveCondition);
+        deps.data.mapIsEnabled = 'true';
+      }
+    },
+
 
   };
 
-  /**
-   * Функция удаляет классы у элементов и удаляет событие
-   */
-  window.setActiveCondition = function () {
-    if (deps.data.mapIsEnabled === 'false') {
-      window.form.setDisableAttribute(deps.data.adFormFieldsets, false);
-      window.form.setDisableAttribute(deps.data.mapFilterSelects, false);
-      window.form.setDisableAttribute(deps.data.mapFilterInputs, false);
-      deps.utils.setupFunction(deps.data.map, deps.data.MAP_FADED_CLASS);
-      deps.utils.setupFunction(deps.data.adForm, deps.data.ADFORM_DISABLED_CLASS);
-      deps.map.renderAdsOnMap();
-      deps.data.mainPin.removeEventListener('mouseup', window.setActiveCondition);
-      deps.data.mapIsEnabled = 'true';
-    }
-  };
+
   /**
    * Функция меняет минимальное значение цены за ночь в зависимости от типа жилья
    */

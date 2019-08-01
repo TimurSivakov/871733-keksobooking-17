@@ -1,7 +1,8 @@
 'use strict';
 (function () {
   var deps = {
-    data: window.data
+    data: window.data,
+    form: window.form
   };
   window.map = {
     /**
@@ -44,7 +45,7 @@
         };
         var onMouseUp = function (upEvt) {
           upEvt.preventDefault();
-          window.setActiveCondition();
+          window.form.setActiveCondition();
           deps.data.addressInput.setAttribute('value', deps.data.mainPin.style.left + ', ' + deps.data.mainPin.style.top);
           document.removeEventListener('mousemove', onMouseMove);
           document.removeEventListener('mouseup', onMouseUp);
