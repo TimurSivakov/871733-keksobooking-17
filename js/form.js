@@ -39,12 +39,16 @@
       var adFormPriceInputAttribute = Object.values(deps.data.MIN_PRICE_FOR_NIGHT)[typeSelectedIndex];
       deps.data.adFormPriceInput.min = adFormPriceInputAttribute;
       deps.data.adFormPriceInput.placeholder = adFormPriceInputAttribute;
+    },
+    /**
+     * Функция отключает фильтры
+     */
+    disableFilter: function () {
+      window.form.setDisableAttribute(deps.data.adFormFieldsets, true);
+      window.form.setDisableAttribute(deps.data.mapFilterSelects, true);
+      window.form.setDisableAttribute(deps.data.mapFilterInputs, true);
     }
   };
-
-  window.form.setDisableAttribute(deps.data.adFormFieldsets, true);
-  window.form.setDisableAttribute(deps.data.mapFilterSelects, true);
-  window.form.setDisableAttribute(deps.data.mapFilterInputs, true);
 
   deps.data.addressInput.setAttribute('value', deps.data.mainPinXCenter + ', ' + deps.data.mainPinYCenter);
   deps.data.mainPin.addEventListener('mouseup', function () {
