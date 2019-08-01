@@ -56,23 +56,25 @@
       deps.data.mainPin.addEventListener('mouseup', function () {
         deps.data.addressInput.setAttribute('value', deps.data.mainPinXCenter + ', ' + deps.data.MAIN_PIN_ACTIVE_Y);
       });
+    },
+    /**
+     * Функция меняет значения полей в форме
+     */
+    changeFormValue: function () {
+      deps.data.adFormTypeSelect.addEventListener('input', window.form.setMinPrice);
+      deps.data.adFormTimeInSelect.addEventListener('change', function () {
+        var SelectedIndex = deps.data.adFormTimeInSelect.selectedIndex;
+        if (deps.data.adFormTimeInSelect.value === deps.data.adFormTimeInOption[SelectedIndex].value) {
+          deps.data.adFormTimeOutSelect.value = deps.data.adFormTimeOutOption[SelectedIndex].value;
+        }
+      });
+
+      deps.data.adFormTimeOutSelect.addEventListener('change', function () {
+        var SelectedIndex = deps.data.adFormTimeOutSelect.selectedIndex;
+        if (deps.data.adFormTimeOutSelect.value === deps.data.adFormTimeOutOption[SelectedIndex].value) {
+          deps.data.adFormTimeInSelect.value = deps.data.adFormTimeInOption[SelectedIndex].value;
+        }
+      });
     }
   };
-
-
-  deps.data.adFormTypeSelect.addEventListener('input', window.form.setMinPrice);
-
-  deps.data.adFormTimeInSelect.addEventListener('change', function () {
-    var SelectedIndex = deps.data.adFormTimeInSelect.selectedIndex;
-    if (deps.data.adFormTimeInSelect.value === deps.data.adFormTimeInOption[SelectedIndex].value) {
-      deps.data.adFormTimeOutSelect.value = deps.data.adFormTimeOutOption[SelectedIndex].value;
-    }
-  });
-
-  deps.data.adFormTimeOutSelect.addEventListener('change', function () {
-    var SelectedIndex = deps.data.adFormTimeOutSelect.selectedIndex;
-    if (deps.data.adFormTimeOutSelect.value === deps.data.adFormTimeOutOption[SelectedIndex].value) {
-      deps.data.adFormTimeInSelect.value = deps.data.adFormTimeInOption[SelectedIndex].value;
-    }
-  });
 })();

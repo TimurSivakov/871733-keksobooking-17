@@ -10,3 +10,4 @@ deps.load.getDataFromServer();
 deps.map.activateMap();
 deps.form.disableFilter();
 deps.form.setMainPinAddressInput();
+deps.form.changeFormValue();
