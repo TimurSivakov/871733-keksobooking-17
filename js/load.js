@@ -10,15 +10,23 @@
         window.data.main.removeChild(errorMessage);
       });
     },
-    getDataFromServer: function () {
+    /**
+     * Функция Получает данные с сервера
+     * @param {Function} onSuccess
+     * @param {Function} onError
+     */
+    getDataFromServer: function (onSuccess, onError) {
       var URL = 'https://js.dump.academy/keksobooking/data';
       window.xhr = new XMLHttpRequest();
       window.xhr.responseType = 'json';
       window.xhr.addEventListener('load', function () {
         if (window.xhr.status === 200) {
           window.ads = window.xhr.response;
+          window.filtered = onSuccess(window.ads);
+          console.log(window.ads);
+          console.log(window.filtered);
         } else {
-          window.load.onError();
+          onError();
         }
       });
       window.xhr.open('GET', URL);
@@ -26,4 +34,3 @@
     }
   };
 })();
-
