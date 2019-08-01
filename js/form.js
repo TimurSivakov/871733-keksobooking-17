@@ -5,24 +5,28 @@
     utils: window.utils,
     map: window.map
   };
-  /**
-   * Функция устанавливает атрибут disabled на выбранный селектор
-   * @param {RadioNodeList|HTMLElement|Element} selectors
-   * @param {boolean} isDisabled булево значение отключен или нет
-   */
-  var setDisableAttribute = function (selectors, isDisabled) {
-    for (var i = 0; i < selectors.length; i++) {
-      selectors[i].disabled = isDisabled;
-    }
+  window.form = {
+    /**
+     * Функция устанавливает атрибут disabled на выбранный селектор
+     * @param {RadioNodeList|HTMLElement|Element} selectors
+     * @param {boolean} isDisabled булево значение отключен или нет
+     */
+    setDisableAttribute: function (selectors, isDisabled) {
+      for (var i = 0; i < selectors.length; i++) {
+        selectors[i].disabled = isDisabled;
+      }
+    },
+
   };
+
   /**
    * Функция удаляет классы у элементов и удаляет событие
    */
   window.setActiveCondition = function () {
     if (deps.data.mapIsEnabled === 'false') {
-      setDisableAttribute(deps.data.adFormFieldsets, false);
-      setDisableAttribute(deps.data.mapFilterSelects, false);
-      setDisableAttribute(deps.data.mapFilterInputs, false);
+      window.form.setDisableAttribute(deps.data.adFormFieldsets, false);
+      window.form.setDisableAttribute(deps.data.mapFilterSelects, false);
+      window.form.setDisableAttribute(deps.data.mapFilterInputs, false);
       deps.utils.setupFunction(deps.data.map, deps.data.MAP_FADED_CLASS);
       deps.utils.setupFunction(deps.data.adForm, deps.data.ADFORM_DISABLED_CLASS);
       deps.map.renderAdsOnMap();
@@ -39,9 +43,9 @@
     deps.data.adFormPriceInput.min = adFormPriceInputAttribute;
     deps.data.adFormPriceInput.placeholder = adFormPriceInputAttribute;
   };
-  setDisableAttribute(deps.data.adFormFieldsets, true);
-  setDisableAttribute(deps.data.mapFilterSelects, true);
-  setDisableAttribute(deps.data.mapFilterInputs, true);
+  window.form.setDisableAttribute(deps.data.adFormFieldsets, true);
+  window.form.setDisableAttribute(deps.data.mapFilterSelects, true);
+  window.form.setDisableAttribute(deps.data.mapFilterInputs, true);
 
   deps.data.addressInput.setAttribute('value', deps.data.mainPinXCenter + ', ' + deps.data.mainPinYCenter);
   deps.data.mainPin.addEventListener('mouseup', function () {
